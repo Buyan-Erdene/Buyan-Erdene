@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .game-info {
+            margin-bottom: 20px;
+        }
+
+        .hangman {
+            font-family: monospace;
+            white-space: pre;
+        }
+
+        .input-area {
+            margin-top: 20px;
+        }
+
+        .letters {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Welcome to Hangman!</h1>
+    <p>Hint: Улсын нэр</p>
+    <section class="game-info">
+        <p>Үг: <span id="current-word">_ _ _ _ _</span></p>
+        <p>Нийт Боломж: <span id="attempts-left">6</span></p>
+        <p>Тааж Үзсэн Үсэгнүүд: <span id="taalted-letters"></span></p>
+    </section>
+
+    <section class="hangman" id="hangman"></section>
+
+    <section class="input-area">
+        <label for="taalt">Таасан үсгээ оруулна уу: </label>
+        <input type="text" id="taalt" maxlength="1" />
+        <button id="guess-btn">Guess</button>
+        <button id="reset-btn">New Game</button>
+    </section>
+
+    <script>
+        const ugnuud = ["america", "brazil", "mongolia", "russia", "england"];
+        let taahUg = getRandomWord();
+        let odoogiinUg = Array(taahUg.length).fill('_');
+        let uldsenBolomj = 6;
+        let taasanUsegnuud = [];
+        const hangmanZurag = [
+            `
+               _____
+              |     |
+              |     
+              |     
+              |     
+              |     
+              |     
+            `,
+            `
+               _____
+              |     |
+              |     O
+              |     
+              |     
+              |     
+              |     
+            `,
+            `
+               _____
+              |     |
+              |     O
+              |     |
+              |     
+              |     
+              |     
+            `,
+            `
+               _____
+              |     |
+              |     O
+              |    /|
+              |     
+              |     
+              |     
+            `,
+            `
+               _____
+              |     |
+              |     O
+              |    /|\\
+              |     
+              |     
+              |     
+            `,
+            `
+               _____
+              |     |
+              |     O
+              |    /|\\
+              |    /
+              |     
+              |     
+            `,
+            `
+               _____
+              |     |
+              |     O
+              |    /|\\
+              |    / \\
+              |     
+              |     
+            `
+        ];
+
+        function getRandomWord() {
+            return ugnuud[Math.floor(Math.random() * ugnuud.length)];
+        }
+
+        function hangmanZurah() {
+            document.getElementById('hangman').textContent = hangmanZurag[6 - uldsenBolomj];
+        }
+
+        function odoogiinUgiigHaruulah() {
+            document.getElementById('current-word').textContent = odoogiinUg.join(' ');
+        }
+
+        function bichigdsenUsegnuud() {
+            document.getElementById('taalted-letters').textContent = taasanUsegnuud.join(', ');
+            document.getElementById('letter-list').textContent = taasanUsegnuud.join(', ');
+        }
+
+        function taahHeseg() {
+            const taaltInput = document.getElementById('taalt');
+            const taalt = taaltInput.value.toLowerCase();
+            taaltInput.value = '';
+
+            if (taalt && /^[a-z]$/.test(taalt)) {  //useg esehiig shalgana
+                if (taasanUsegnuud.includes(taalt)) {  //taasanusegnuud dotor baival
+                    alert("Энэ үсгийг өмнө нь бичсэн байна.");
+                } else {
+                    taasanUsegnuud.push(taalt);  //bhgu bol taasan usegnuud dotor hiine
+                    let zovTaalt = false;
+
+                    for (let i = 0; i < taahUg.length; i++) {  //useg taarsan esehiig shalgana
+                        if (taahUg[i] === taalt) {
+                            odoogiinUg[i] = taalt;
+                            zovTaalt = true;
+                        }
+                    }
+
+                    if (!zovTaalt) {  //buruu taasan bol bolomjiig hasna
+                        uldsenBolomj--;
+                        hangmanZurah();
+                    }
+
+                    odoogiinUgiigHaruulah();
+                    bichigdsenUsegnuud();
+
+                    if (odoogiinUg.join('') === taahUg) {
+                        setTimeout(() => {
+                            alert(`Баяр хүргэе! Та үгийг тааж чадлаа: ${taahUg}`);
+                        }, 100);
+                    } else if (uldsenBolomj === 0) {
+                        setTimeout(() => {
+                            alert(`Тоглоом дууслаа! Та үгийг тааж чадсангүй: ${taahUg}`);
+                        }, 100);
+                    }
+                }
+            } else {
+                alert("үсэг оруулна уу.");
+            }
+        }
+
+        document.getElementById('guess-btn').addEventListener('click', taahHeseg);
+        document.getElementById('reset-btn').addEventListener('click', function() {
+            taahUg = getRandomWord();
+            odoogiinUg = Array(taahUg.length).fill('_');
+            uldsenBolomj = 6;
+            taasanUsegnuud = [];
+            hangmanZurah();
+            odoogiinUgiigHaruulah();
+            bichigdsenUsegnuud();
+        });
+
+        hangmanZurah();
+        odoogiinUgiigHaruulah();
+        bichigdsenUsegnuud();
+    </script>
+</body>
+
+</html>

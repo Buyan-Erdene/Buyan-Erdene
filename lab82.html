@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чоно туулай</title>
+    <style>
+        header {
+            background-color: bisque;
+            text-align: center;
+        }
+        .main {
+            text-align: center;
+        }
+        .hariult h2 {
+            background-color: bisque;
+        }
+        .hariult {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Энэхүү бодлого нь Чоно туулайг хэдий хугацааны дараа барихыг тооцоолно</h1>
+    </header>
+    <section class="main">
+        <label for="zai">Чоно, туулайн хоорондын зайг оруулна уу (км-ээр):</label>
+        <input type="number" id="zai" placeholder="Зайг км-ээр оруулна уу" />
+        <button onclick="calculateTime()">Бодох</button>
+    </section>
+    <section class="hariult">
+        <h2>Бодлогын хариу:</h2>
+        <p id="hariu"></p>
+    </section>
+
+    <script>
+        function calculateTime() {
+            const zai = parseFloat(document.getElementById('zai').value) * 1000; //metr luu
+            const chono = 25 * 1000 / 3600;  // m/s ruu
+            const tuulai = 18 * 1000 / 3600;
+            if (zai <= 0) {
+                document.getElementById('result').textContent = 'Эерэг утга оруулна уу!';
+                return;
+            }
+            const zoruu = chono - tuulai;
+            const niitSec = zai / zoruu;
+            const minute = Math.floor(niitSec / 60);
+            const second = Math.round(niitSec % 60);
+            document.getElementById('result').textContent = 
+                `Чоно туулайг ${minute} минут ${second} секундийн дараа барина.`;
+        }
+    </script>
+</body>
+</html>

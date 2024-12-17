@@ -1,0 +1,256 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Lato", serif;
+}
+
+.lato-regular {
+    font-family: "Lato", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.lato-bold {
+    font-family: "Lato", serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+
+body {
+    background-color: white;
+}
+
+.logoheseg {
+    background-color: #1b1b6c;
+    color: white;
+    padding: 10px 20px;
+}
+
+.logo {
+    font-size: 1rem;
+}
+
+.deedheseg {
+    background-color: #13124f;
+    color: white;
+    padding: 40px 20px;
+    text-align: left;
+}
+
+.deedheseg h2 {
+    font-size: 2rem;
+}
+
+.deedTovchluur {
+    background-color: #f61067;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.mainHeseg {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.zuunHeseg {
+    flex: 2;
+    min-width: 300px;
+    padding: 10px 20px;
+}
+
+.zuunHeseg h2 {
+    margin-bottom: 10px;
+}
+
+.bichleg {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.bichleg iframe{
+    width: 100%;
+}
+
+.anhaaruulga {
+    background-color: #9090a5;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 20px;
+}
+
+.baruunHeseg {
+    flex: 1;
+    min-width: 300px;
+    padding-right: 20px;
+}
+
+
+.messages {
+    background-color: #f61067;
+    color: white;
+    text-align: center;
+    padding: 8px;
+    margin: 10px 0;
+}
+
+.message-count {
+    background-color: #352ba5;
+    display: inline-block;
+    border-radius: 50%;
+    width: 1rem;
+    text-align: center;
+    color: white;
+}
+
+.message1{
+    padding: 8px;
+    background-color: #9090a5;
+    color: white;
+}
+
+.message-box{
+    padding: 8px;
+    background-color: #13124f;
+    color: white;
+    font-size: 13px;
+}
+.message-box input {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #9090a5;
+    background-color: #1b1b6c;
+}
+
+.message-box button{
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+    background-color: #f61067;
+    color: white;
+}
+
+.message2{
+    background-color: #352ba5;
+    text-align: center;
+    height: 30px;
+}
+.message2 a{
+    color: white;
+    font-size: 10px;
+}
+
+.voteHeseg {
+    padding: 8px;
+    margin: 10px 0;
+    margin-top: 20px;
+    background: white;
+    border: 2px solid #9090a5 ;
+}
+
+.voteUrt{
+    display: flex;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.coolUrt{
+    width: 70%;
+    background-color: #f61067;
+    height: 5px;
+}
+
+.lameUrt{
+    width: 30%;
+    background-color: #2ad392;
+    height: 5px;
+}
+
+.voteTovchluur{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cool {
+    background-color: #f61067;
+    color: white;
+    border-color: #f61067;
+    width: 45%;
+}
+
+.lame {
+    background-color: white;
+    color: #2ad392;
+    border: 2px solid #2ad392;
+    width: 45%;
+}
+
+.footer{
+    background-color: #13124f;
+    color: white;
+    text-align: left;
+    padding: 20px 20px;
+}
+
+@media (max-width: 768px) {
+    .mainHeseg {
+        flex-direction: column;
+    }
+
+    .deedheseg h2 {
+        font-size: 2rem;
+    }
+
+    .deedTovchluur {
+        padding: 8px 16px;
+    }
+
+    .zuunHeseg,
+    .rzuunHeseg {
+        flex: 1;
+        margin-bottom: 20px;
+    }
+
+    .bichleg iframe {
+        height: 200px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .deedheseg h2 {
+        font-size: 2.2rem;
+    }
+
+    .container {
+        width: 95%;
+    }
+
+    .mainHeseg {
+        flex-wrap: wrap;
+    }
+
+    .zuunHeseg {
+        flex: 3;
+    }
+
+    .baruunHeseg {
+        flex: 2;
+    }
+}
+
+@media (min-width: 1025px) {
+    .jumbotron h2 {
+        font-size: 3rem;
+    }
+
+    .container {
+        max-width: 1200px;
+    }
+}

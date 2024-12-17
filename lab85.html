@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Өглөө болон орой</title>
+    <style>
+        header {
+            background-color: bisque;
+            text-align: center;
+        }
+        .main {
+            text-align: center;
+        }
+        .hariult h2 {
+            background-color: bisque;
+        }
+        .hariult {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Өглөө ороход тоог 2 зэрэгт орой ороход язгуурт авдаг программ</h1>
+    </header>
+    <section class="main">
+        <label for="inputNumber">Тоог оруулна уу:</label>
+        <input type="number" id="inputNumber" placeholder="Таны тоо" />
+        <button onclick="calculate()">Тооцоолох</button>
+    </section>
+    <section class="hariult">
+        <h2>Бодлогын хариу:</h2>
+        <p id="hariu"></p>
+    </section>
+
+    <script>
+        function calculate() {
+            const number = parseFloat(document.getElementById('inputNumber').value);
+            const now = new Date();
+            const odooTsag = now.getHours();
+            let hariu = "";
+
+            if (odooTsag >= 6 && odooTsag < 18) { 
+                hariu = `Өглөө: ${number}-ын 2 зэрэг нь ${Math.pow(number, 2)}.`;
+            } else { 
+                if (number < 0) {
+                    hariu = 'Сөрөг тооноос язгуур авч болохгүй.';
+                } else {
+                    hariu = `Орой: ${number}-ын язгуур нь ${Math.sqrt(number)}.`;
+                }
+            }
+
+            document.getElementById('hariu').textContent = hariu;
+        }
+    </script>
+</body>
+</html>

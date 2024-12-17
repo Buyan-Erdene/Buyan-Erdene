@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palindrome тоо эсэхийг шалгах</title>
+    <style>
+        header {
+            background-color: bisque;
+            text-align: center;
+        }
+        .main {
+            text-align: center;
+        }
+        .hariult h2 {
+            background-color: bisque;
+        }
+        .hariult {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Энэхүү функц нь тоог палиндром эсэхийг шалгана.</h1>
+    </header>
+    <section class="main">
+        <label for="number">Тоог оруулна уу:</label>
+        <input type="number" id="number" />
+        <button onclick="isPalindrome()">Шалгах</button>
+    </section>
+    <section class="hariult">
+        <h2>Бодлогын хариу:</h2>
+        <p id="hariu"></p>
+    </section>
+
+    <script>
+        function isPalindrome() {
+            const num = parseInt(document.getElementById('number').value);
+            let esreg = 0;
+            let temp = num;
+            while (temp !== 0) {
+                esreg = (esreg * 10) + (temp % 10);
+                temp = Math.floor(temp / 10);
+            }
+
+            if (esreg === num) {
+                document.getElementById("hariu").innerText = "Энэ тоо нь палиндром тоо мөн.";
+            } else {
+                document.getElementById("hariu").innerText = "Энэ тоо нь палиндром тоо биш.";
+            }
+        }
+    </script>
+</body>
+</html>

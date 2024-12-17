@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тоотоор байрлалыг олох</title>
+    <style>
+        header {
+            background-color: bisque;
+            text-align: center;
+        }
+        .main {
+            text-align: center;
+        }
+        .hariult h2 {
+            background-color: bisque;
+        }
+        .hariult {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Өгсөн тоотоор айлын орц давхрыг олох программ</h1>
+    </header>
+    <section class="main">
+        <label for="toot">Айлын тоотыг оруулна уу (1-108):</label>
+        <input type="number" id="toot" />
+        <button onclick="bairlalOloh()">Олох</button>
+    </section>
+    <section class="hariult">
+        <h2>Бодлогын хариу:</h2>
+        <p id="hariu"></p>
+    </section>
+
+    <script>
+        function bairlalOloh() {
+            const niitDavhar = 9;
+            const niitOrts = 3;
+            const davhartAil = 4;
+
+            const toot = parseInt(document.getElementById('toot').value);
+            if (toot < 1 || toot > niitDavhar * niitOrts * davhartAil) {
+                document.getElementById('hariu').textContent = '1-ээс 108 хүртэлх тоо оруулна уу.';
+                return;
+            }
+            const ortsBolgond = niitDavhar * davhartAil;
+            const orts = Math.floor((toot - 1) / ortsBolgond) + 1;
+            const ortsonDahiDavhar = Math.floor((toot - 1) % ortsBolgond / davhartAil) + 1;
+            const davharDahiAil = (toot - 1) % davhartAil + 1;
+            document.getElementById('hariu').textContent = `${toot} тоот айл нь ${orts} дахь орцны, ${ortsonDahiDavhar} давхрын, ${davharDahiAil} дахь айл юм.`;
+        }
+    </script>
+</body>
+</html>

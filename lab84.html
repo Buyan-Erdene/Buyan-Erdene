@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5-н тооны ХБЕХ</title>
+    <style>
+        header {
+            background-color: bisque;
+            text-align: center;
+        }
+        .main {
+            text-align: center;
+            margin: 20px;
+        }
+        .hariult h2 {
+            background-color: bisque;
+        }
+        .hariult {
+            text-align: center;
+        }
+        .number-input {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Өгсөн 5 тооны Хамгийн Бага Ерөнхий Хуваагчийг олдог программ</h1>
+    </header>
+    <section class="main">
+        <p>Таван тоо оруулна уу:</p>
+        <input type="number" id="number1" class="number-input" placeholder="1-р тоо" />
+        <input type="number" id="number2" class="number-input" placeholder="2-р тоо" />
+        <input type="number" id="number3" class="number-input" placeholder="3-р тоо" />
+        <input type="number" id="number4" class="number-input" placeholder="4-р тоо" />
+        <input type="number" id="number5" class="number-input" placeholder="5-р тоо" />
+        <br>
+        <button onclick="HBEHOloh()">ХБЕХ олох</button>
+    </section>
+    <section class="hariult">
+        <h2>Бодлогын хариу:</h2>
+        <p id="toonuud"></p>
+        <p id="hariu"></p>
+    </section>
+
+    <script>
+        function HIEH(a, b) {
+            while (b !== 0) {
+                let temp = b;
+                b = a % b;
+                a = temp;
+            }
+            return a;
+        }
+        function HBEH(a, b) {
+            return (a * b) / HIEH(a, b);
+        }
+        function HBEHOloh() {
+            const numbers = [
+                parseInt(document.getElementById('number1').value),
+                parseInt(document.getElementById('number2').value),
+                parseInt(document.getElementById('number3').value),
+                parseInt(document.getElementById('number4').value),
+                parseInt(document.getElementById('number5').value)
+            ];
+            let toonuudText = "Таны оруулсан тоонууд:<br>";
+            numbers.forEach((num, index) => {
+                toonuudText += `${index + 1}-р тоо: ${num} <br>`;
+            });
+            document.getElementById('toonuud').innerHTML = toonuudText;
+
+            let result = numbers[0];
+            for (let i = 1; i < numbers.length; i++) {
+                result = HBEH(result, numbers[i]);
+            }
+            document.getElementById('hariu').textContent = `Тоонуудын ХБЕХ: ${result}`;
+        }
+    </script>
+</body>
+</html>
