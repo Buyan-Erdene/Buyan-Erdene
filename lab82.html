@@ -40,14 +40,14 @@
             const chono = 25 * 1000 / 3600;  // m/s ruu
             const tuulai = 18 * 1000 / 3600;
             if (zai <= 0) {
-                document.getElementById('result').textContent = 'Эерэг утга оруулна уу!';
+                document.getElementById('hariu').textContent = 'Эерэг утга оруулна уу!';
                 return;
             }
             const zoruu = chono - tuulai;
             const niitSec = zai / zoruu;
             const minute = Math.floor(niitSec / 60);
             const second = Math.round(niitSec % 60);
-            document.getElementById('result').textContent = 
+            document.getElementById('hariu').textContent = 
                 `Чоно туулайг ${minute} минут ${second} секундийн дараа барина.`;
         }
     </script>
