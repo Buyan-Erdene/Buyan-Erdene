@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мэдээний жагсаалт</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .news-item {
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .news-item h2 {
+            margin-top: 0;
+        }
+        .news-item a {
+            color: #333;
+            text-decoration: none;
+        }
+        .news-item a:hover {
+            color: #0066cc;
+        }
+        .date {
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Мэдээний жагсаалт</h1>
+    <div id="news-container"></div>
+
+    <script>
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('mn-MN');
+        }
+
+        function displayNews(items) {
+            const container = document.getElementById('news-container');
+            items.forEach(item => {
+                const newsDiv = document.createElement('div');
+                newsDiv.className = 'news-item';
+                newsDiv.innerHTML = `
+                    <h2><a href="news-detail.html?id=${encodeURIComponent(item.link)}">${item.title}</a></h2>
+                    <p class="date">${formatDate(item.pubDate)}</p>
+                    <p>${item.description}</p>
+                `;
+                container.appendChild(newsDiv);
+            });
+        }
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://ikon.mn/rss");
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xhr.responseText, "text/xml");
+                const items = Array.from(xmlDoc.getElementsByTagName('item')).map(item => ({
+                    title: item.getElementsByTagName('title')[0].textContent,
+                    link: item.getElementsByTagName('link')[0].textContent,
+                    description: item.getElementsByTagName('description')[0].textContent,
+                    pubDate: item.getElementsByTagName('pubDate')[0].textContent
+                }));
+                displayNews(items);
+            } else {
+                console.error("RSS татахад алдаа гарлаа.");
+                document.getElementById('news-container').innerHTML = 
+                    '<p>Мэдээ ачаалахад алдаа гарлаа. Дахин оролдоно уу.</p>';
+            }
+        };
+        xhr.onerror = function () {
+            console.error("Хүсэлт илгээхэд алдаа гарлаа.");
+            document.getElementById('news-container').innerHTML = 
+                '<p>Сервертэй холбогдоход алдаа гарлаа. Дахин оролдоно уу.</p>';
+        };
+        xhr.send();
+    </script>
+</body>
+</html>

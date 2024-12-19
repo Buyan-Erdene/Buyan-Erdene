@@ -1,0 +1,62 @@
+main{
+    padding-top: 50px;
+    display: flex;
+    background-color: rgb(230, 230, 230);
+}
+.zuun{
+    width: 70%;
+    margin: 20px;
+}
+
+.deedheseg{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px 0;
+    padding: 0 10px;
+}
+
+article{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    background-color: white;
+    display: flex;
+}
+article img{
+    height: 200px;
+    width: 30%;
+}
+.tailbar{
+    padding: 10px;
+}
+
+.tovchluur{
+    right: 0;
+    border-color: rgb(141, 102, 79);
+    color: rgb(141, 102, 79);
+    background-color: transparent;
+    padding: 5px;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.baruun{
+    width: 30%;
+    margin-top: 50px;
+}
+
+.zahialga{
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.zahialga ul li{
+    list-style: none;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}

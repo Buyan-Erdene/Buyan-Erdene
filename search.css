@@ -1,0 +1,81 @@
+main{
+    padding-top: 50px;
+    display: flex;
+    background-color: rgb(230, 230, 230);
+}
+.zuun{
+    padding: 10px;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    background-color: white;
+    gap: 10px;
+    height: 60%;
+}
+
+.zuun ul li{
+    list-style: none;
+}
+.zuun ul li a{
+    color: black;
+}
+.garchig{
+    background-color: rgb(176, 176, 176);
+    font-size: 15px;
+}
+
+.baruun{
+    margin: 20px;
+    width: 70%;
+}
+.searchmain{
+    background-color: white;
+}
+
+.searchmain nav ul{
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    gap: 30px;
+    font-size: 15px;
+}
+
+.searchmain nav ul li{
+    list-style: none;
+}
+.searchmain nav ul li a{
+    text-decoration: none;
+    color: black;
+}
+
+.aylluud{
+    margin-top: 30px;
+        display: grid;
+        gap: 20px;
+        grid-template-columns: auto auto;
+        padding: 10px;
+}
+article{
+    background-color: white;
+}
+article img{
+    height: 200px;
+    width: 100%;
+}
+article a{
+    text-decoration: none;
+    color: black;
+}
+article a h2, p{
+    padding-left: 10px;
+}
+article button{
+    float: right;
+    border-color: rgb(141, 102, 79);
+    color: rgb(141, 102, 79);
+    background-color: transparent;
+    padding: 10px;
+    border-radius: 30%;
+    margin: 10px;
+}
