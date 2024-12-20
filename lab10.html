@@ -1,41 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RSS Parser</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Мэдээний сайт</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #6d5532;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        #news-list {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            flex-grow: 1;
+        }
+
+        .news {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .news a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: block;
+            padding: 0.5rem;
+        }
+
+        .news a:hover {
+            color: #3498db;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #6d5532;
+            color: white;
+            margin-top: 2rem;
+        }
+    </style>
 </head>
 <body>
-    <h1>RSS Data Parser</h1>
-    <button id="fetchRss">Fetch and Save RSS</button>
-    <p id="status"></p>
+    <header>
+        <h1>Мэдээнүүдийн жагсаалт</h1>
+    </header>
+    <section id="news-list"></section>     <!--ih biy. medeenii jagsaaltiig bairluulna-->
+    <footer>Блог</footer>
 
     <script>
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-const targetUrl = 'https://ikon.mn/rss';
+        const xhr = new XMLHttpRequest();   //shine object uusgene
+        xhr.open("GET", "ikon.xml");  //rss medeelliig avah GET huselt yvuulna
+        xhr.onload = function () {
+            if (xhr.status === 200) {    //huselt amjilttai heregjsen bol
+                const parser = new DOMParser();  //Ogogdliig bolovsruulah DOMParser
+                const xmlDoc = parser.parseFromString(xhr.responseText, "text/xml");
 
-document.getElementById("fetchRss").addEventListener("click", async () => {
-    const status = document.getElementById("status");
-    status.textContent = "Fetching RSS data...";
-    try {
-        const response = await fetch(proxyUrl + targetUrl);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const rssData = await response.text();
-        const blob = new Blob([rssData], { type: "application/xml" });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = "text.xml";
-        link.click();
+                const items = xmlDoc.getElementsByTagName("item");  //rss deh buh item elementuuiddg avch items object-d hiine
+                const newsList = document.getElementById("news-list");  //html - iin ih biy buyu newsList hesgiig todorhoilno 
 
-        status.textContent = "RSS data saved as text.xml.";
-    } catch (error) {
-        console.error("Error fetching or saving RSS data:", error);
-        status.textContent = "Failed to fetch or save RSS data.";
-    }
-});
+                for (let i = 0; i < items.length; i++) {  //items elementuudiig bugdiig
+                    const title = items[i].getElementsByTagName("title")[0].textContent;  //items iin garchiguudiig avch title object-d hadgalna.
 
+                    const newsItem = document.createElement("section");  //ih biy hesegtee medeenii blok uusgeh
+                    newsItem.classList.add("news");  //medeenii bloktoo news class nemeh
+
+                    const titleElement = document.createElement("a");  //medeenii garchigtai holboos yysgeh
+                    titleElement.href = `lab10medee.html?index=${i}`; //lab10medee tei index eer ni holboh
+                    titleElement.textContent = title;  //textiin holboosiig garchigt tohiruulah
+
+                    newsItem.appendChild(titleElement);  //newsitem blok ruu medeenii holboos buhii garchigiig nemeh
+                    newsList.appendChild(newsItem);  //newslist buyu ih biyiin jagsaalt ruu medeenii blokiig nemeh
+                }
+            } else {
+                console.error("RSS татахад алдаа гарлаа.");  //huselt amjiltgui bolson bol
+            }
+        };
+
+        xhr.send();  //huseltiig ilgeeh
     </script>
 </body>
 </html>

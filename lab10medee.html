@@ -1,13 +1,147 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мэдээний дэлгэрэнгүй</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Дэлгэрэнгүй мэдээ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #acacac;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #6d5532;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .medeeclass {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            flex-grow: 1;
+        }
+
+        .medeeclass h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .medeeclass .description {
+            margin: 1.5rem 0;
+            color: #333;
+        }
+
+        .medeeclass .date {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .back-button:hover {
+            background-color: #2980b9;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #6d5532;
+            color: white;
+            margin-top: 2rem;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 1rem 0;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Мэдээний жагсаалт</h1>
+        <h1>Дэлгэрэнгүй мэдээ</h1>
     </header>
+    <section class="medeeclass" id="medeeid"></section>
+    <footer>Блог</footer>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);  //odoogiin huudasnii url hesgiig avah
+        const index = parseInt(urlParams.get('index'));  //medeenii indexiig avah
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "ikon.xml");
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                const parser = new DOMParser();  //textiig dom helber luu horvuuleh
+                const xmlDoc = parser.parseFromString(xhr.responseText, "text/xml");
+
+                const items = xmlDoc.getElementsByTagName("item");  //rss dotorh buh item uudiig avch items ruu hiine
+                if (items[index]) {
+                    const title = items[index].getElementsByTagName("title")[0].textContent; //tuhain indexiin medeenii garchigiig avch hadgalna.
+                    const description = items[index].getElementsByTagName("description")[0].textContent;  //tuhain indexiin medeenii tailbariig avch hadgalna
+                    const pubDate = items[index].getElementsByTagName("pubDate")[0].textContent;  //tuhain indexiin medeenii ognoog avch hadgalna
+
+                    const newsContent = document.getElementById("medeeid");  //html ih biy
+                    
+                    const titleElement = document.createElement("h2");  //h2 element uusgej garchigiig bichne
+                    titleElement.textContent = title;
+                    
+                    const descriptionElement = document.createElement("section");  //section uusgej tailbariig bichne
+                    descriptionElement.className = "description";
+                    descriptionElement.innerHTML = description;
+                    
+                    const dateElement = document.createElement("p");  //p element uusgej ognoog bichne
+                    dateElement.className = "date";
+                    dateElement.textContent = `Огноо: ${pubDate}`;
+                    
+                    const backButton = document.createElement("a");  //butsah holboost tovchluur uusgene
+                    backButton.href = "lab10.html";  //lab10 ruu butsdag bn
+                    backButton.className = "back-button";
+                    backButton.textContent = "Буцах";
+
+                    newsContent.appendChild(titleElement);   //ih biyd garchigiig nemeh
+                    newsContent.appendChild(descriptionElement);  //ih biyd tailbariig nemeh
+                    newsContent.appendChild(dateElement); //ih biyd ognoog nemeh
+                    newsContent.appendChild(backButton);  //ih biyd button nemeh
+                } else {
+                    document.getElementById("medeeid").innerHTML = "<p>Мэдээ олдсонгүй.</p>";  //indexeer haihad medee oldohgui bol
+                }
+            } else {
+                console.error("RSS татахад алдаа гарлаа.");
+            }
+        };
+
+        xhr.onerror = function () {
+            console.error("Хүсэлт илгээхэд алдаа гарлаа.");
+        };
+
+        xhr.send();
+    </script>
 </body>
 </html>
